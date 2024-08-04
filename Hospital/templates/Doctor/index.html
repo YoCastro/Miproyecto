@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block titulo %} Doctores {% endblock %}
+
+{% block Contenido %}
+    <div class="card">
+        <div class="card-header">
+            <a name="" id="" class="btn btn-success" href="{% url 'registrar_doc' %}" role="button">Registrar doctor</a>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">Doctores</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Direccion</th>
+                    <th>Licencia</th>
+                    <th>Especialidad</th>
+                    <th>Horario</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for doctor in doctores %}
+                <tr>
+                    <td>{{ doctor.id }}</td>
+                    <td>{{ doctor.nombre }}</td>
+                    <td>{{ doctor.direccion }}</td>
+                    <td>{{ doctor.numero_licencia }}</td>
+                    <td>{{ doctor.especialidad }}</td>
+                    <td>{{ doctor.horario }}</td>
+                    <td>
+                        <a name="" id="" class="btn btn-info" href="{% url 'editar_doc' doctor.id %}" role="button">Editar</a>
+                        |
+                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_doc' doctor.id %}" role="button">Borrar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+
+{% endblock %}

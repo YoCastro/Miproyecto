@@ -1,0 +1,149 @@
+{% load static  %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil de Paciente</title>
+  <!-- Enlaces de CSS -->
+    <link rel="stylesheet" href='{% static 'css/vista.css' %}'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <!-- Encabezado -->
+  <header class="bg-primary text-white py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Hospital Escuela Universitario</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Vista de perfil -->
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Columna para mostrar los datos del paciente -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Datos del paciente</h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <h5>Nombre:</h5>
+                <p>{{ paciente.nombre }}</p>
+              </div>
+              <div class="col-md-6">
+                <h5>Apellido:</h5>
+                <p>{{ paciente.apellido }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <h5>Edad:</h5>
+                <p>{{ paciente.edad }}</p>
+              </div>
+              <div class="col-md-6">
+                <h5>Dirección:</h5>
+                <p>{{ paciente.direccion }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <h5>Teléfono:</h5>
+                <p>{{ paciente.telefono }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Columna para mostrar el historial de citas -->
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Historial de citas</h3>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                  <th>Motivo</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for cita in paciente.citas.all %}
+                <tr>
+                  <td>{{ cita.fecha }}</td>
+                  <td>{{ cita.hora }}</td>
+                  <td>{{ cita.motivo }}</td>
+                  <td>{{ cita.estado }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   <!-- Expediente médico -->
+    <div class="card mt-3">
+      <div class="card-header">
+        <h3 class="card-title">Expediente médico</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Fecha de creación</th>
+              <th>Notas</th>
+              <th>Tipo de examen</th>
+              <th>Resultado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for expediente in paciente.expedientes.all %}
+            {% for examen in expediente.examenes_medicos.all %}
+            <tr>
+              <td>{{ expediente.fecha_creacion }}</td>
+              <td>{{ expediente.notas_medicas }}</td>
+              <td>{{ examen.tipo_de_examen }}</td>
+              <td>{{ examen.resultado }}</td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- Pie de página -->
+  <footer class="bg-primary text-white py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p>&copy; 2024 Hospital Escuela Universitario. Todos los derechos reservados.</p>
+          <p>Teléfono: 555-1234 | Email: info@hospital.edu</p>
+        </div>
+        <div class="col-md-6 text-right">
+          <a href="#" class="btn btn-outline-light"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="btn btn-outline-light"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="btn btn-outline-light"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Enlaces de JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
